@@ -257,28 +257,67 @@ html, body {
 
 .qa-list { list-style: none; padding: 0; margin: 0; }
 
+.qa-category {
+  margin-bottom: 24px;
+}
+
+.qa-category-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.qa-category-header:hover { background: var(--accent-dark); }
+
+.qa-category-title { flex: 1; }
+
+.qa-category-count {
+  font-size: 13px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2px 10px;
+  border-radius: 12px;
+}
+
+.qa-category-chevron {
+  font-size: 12px;
+  opacity: 0.85;
+  transition: transform 0.15s;
+}
+
+.qa-category-body {
+  padding: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.qa-category-body.collapsed { display: none; }
+
 .qa-item {
   background: var(--card);
   border-radius: var(--radius);
-  margin-bottom: 12px;
   box-shadow: var(--shadow);
-  overflow: hidden;
-}
-
-.qa-summary {
   padding: 16px 18px;
-  cursor: pointer;
-  list-style: none;
-  display: block;
 }
-
-.qa-summary::-webkit-details-marker { display: none; }
 
 .qa-meta {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   font-size: 12px;
   flex-wrap: wrap;
 }
@@ -300,16 +339,27 @@ html, body {
 
 .qa-question {
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.6;
   color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.qa-answer-wrap {
+  background: #f7f5ec;
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.qa-answer-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
 }
 
 .qa-answer {
-  padding: 0 18px 18px;
-  border-top: 1px solid var(--line);
-  margin-top: 8px;
-  padding-top: 14px;
   color: var(--ink);
   font-size: 15px;
   white-space: pre-wrap;
@@ -319,7 +369,26 @@ html, body {
 .qa-answer.empty {
   color: var(--ink-soft);
   font-style: italic;
+  background: none;
+  padding: 0;
+  border: none;
 }
+
+.qa-readmore {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 14px;
+  background: #fff;
+  border: 1px solid var(--accent);
+  color: var(--accent-dark);
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.qa-readmore:hover { background: var(--accent); color: #fff; }
 
 .empty-state {
   text-align: center;
