@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>オーガニックQ&Aひろば｜質問する</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<main class="container">
+  <header class="hero">
+    <h1>オーガニックQ&Aひろば</h1>
+    <p class="lead">学びの中で生まれた疑問を、ここでそっと聞いてみてください。</p>
+  </header>
+
+  <section class="notice">
+    <h2>📝 ご記入のお願い</h2>
+    <ul>
+      <li>お名前・店舗名・お客様の特定情報は書かないでください</li>
+      <li>「ある日、お客様から〇〇と聞かれて困りました」のように一般化してください</li>
+      <li>回答はQ&Aひろばに匿名で公開されます</li>
+      <li>毎週金曜ドイツ時間夜（日本時間土曜）にまとめて回答します</li>
+    </ul>
+  </section>
+
+  <section class="notice notice-vacation">
+    <h2>🌿 回答お休み期間</h2>
+    <p>下記期間は出張・休暇のため、回答をお休みします。<br>
+    お休み中も質問の投稿はできます。再開後にまとめて回答します。</p>
+    <ul>
+      <li>2026年5月18日 〜 6月14日</li>
+      <li>2026年6月22日 〜 7月5日</li>
+      <li>2026年12月1日 〜 12月31日</li>
+    </ul>
+    <p class="notice-footnote">※上記以外にも増える可能性があります</p>
+  </section>
+
+  <form id="qaForm" class="form" novalidate>
+    <label class="field">
+      <span class="label">お名前 <em>(任意)</em></span>
+      <input type="text" name="name" placeholder="匿名でOKです" autocomplete="off">
+    </label>
+
+    <label class="field">
+      <span class="label">部署・店舗 <em>(任意・空欄OK)</em></span>
+      <input type="text" name="department" placeholder="特定されない範囲で" autocomplete="off">
+    </label>
+
+    <label class="field">
+      <span class="label">質問カテゴリ <em>*</em></span>
+      <select name="category" required>
+        <option value="">選んでください</option>
+        <option value="メールレッスンの内容について">メールレッスンの内容について</option>
+        <option value="オーガニックの基礎知識">オーガニックの基礎知識</option>
+        <option value="お客様への説明で困ったこと">お客様への説明で困ったこと</option>
+        <option value="売場・商品について">売場・商品について</option>
+        <option value="その他">その他</option>
+      </select>
+    </label>
+
+    <label class="field">
+      <span class="label">質問内容 <em>*</em></span>
+      <textarea name="question" rows="8" required placeholder="ここに質問を書いてください。&#10;個人や店舗が特定できる書き方は避けてください。"></textarea>
+    </label>
+
+    <button type="submit" id="submitBtn" class="btn-primary">質問を送る</button>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </form>
+
+  <div id="thanks" class="thanks hidden">
+    <h2>ご質問ありがとうございます🌱</h2>
+    <p>毎週金曜ドイツ時間夜（日本時間土曜）にまとめて回答します。<br>
+    回答はQ&Aひろばで公開されますので、お楽しみに。</p>
+    <button type="button" class="btn-secondary" onclick="location.reload()">もう一度質問する</button>
+  </div>
+</main>
+
+<script src="assets/config.js"></script>
+<script src="assets/form.js"></script>
+</body>
+</html>

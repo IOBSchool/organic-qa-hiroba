@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>オーガニックQ&Aひろば｜アーカイブ</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<!-- 鍵画面 -->
+<main id="lockScreen" class="container">
+  <div class="lock">
+    <h1>🔒 合言葉を入力してください</h1>
+    <p>アーカイブを閲覧するには合言葉が必要です。</p>
+    <form id="lockForm">
+      <input type="password" id="passwordInput" placeholder="合言葉" autocomplete="current-password" required>
+      <p id="lockStatus" class="status" role="status" aria-live="polite"></p>
+      <button type="submit" class="btn-primary">開く</button>
+    </form>
+  </div>
+</main>
+
+<!-- アーカイブ本体 -->
+<main id="archiveScreen" class="container hidden">
+  <header class="hero">
+    <h1>オーガニックQ&Aひろば</h1>
+    <p class="lead">これまでの質問と回答</p>
+  </header>
+
+  <div class="toolbar">
+    <input type="search" id="searchInput" placeholder="🔍 キーワードで検索">
+    <div class="toolbar-row">
+      <select id="categoryFilter">
+        <option value="">すべてのカテゴリ</option>
+        <option value="メールレッスンの内容について">メールレッスンの内容について</option>
+        <option value="オーガニックの基礎知識">オーガニックの基礎知識</option>
+        <option value="お客様への説明で困ったこと">お客様への説明で困ったこと</option>
+        <option value="売場・商品について">売場・商品について</option>
+        <option value="その他">その他</option>
+      </select>
+      <select id="sortOrder">
+        <option value="desc">新しい順</option>
+        <option value="asc">古い順</option>
+      </select>
+    </div>
+    <label class="draft-toggle">
+      <input type="checkbox" id="showDrafts">
+      <span>未公開の下書きも表示（管理用）</span>
+    </label>
+  </div>
+
+  <ul id="qaList" class="qa-list"></ul>
+  <div id="emptyState" class="empty-state hidden">該当するQ&Aがありません。</div>
+</main>
+
+<script src="../assets/config.js"></script>
+<script src="../assets/archive.js"></script>
+</body>
+</html>
