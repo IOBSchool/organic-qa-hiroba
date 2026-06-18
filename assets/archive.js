@@ -50,7 +50,7 @@
       const data = await res.json();
       if (!data.ok) {
         if (!silent) {
-          lockStatus.textContent = "合言葉が違います";
+          lockStatus.textContent = "パスワードが違います";
           lockStatus.className = "status error";
         } else {
           localStorage.removeItem(STORAGE_KEY);
