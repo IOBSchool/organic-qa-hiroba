@@ -2,58 +2,162 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>オーガニックQ&Aひろば｜アーカイブ</title>
-<link rel="stylesheet" href="../assets/style.css">
+<meta name="theme-color" content="#1583c4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1583c4; --blue-dark:#0f6ba3;
+    --cream:#f7f4ec; --card:#fff;
+    --brown:#3d2a1e; --brown-mid:#6b5544; --brown-soft:#8a7565;
+    --tan:#b89a6f; --tan-line:#e3d8c4; --orange:#e8743c;
+    --shadow:0 4px 18px rgba(61,42,30,.08); --shadow-lg:0 12px 36px rgba(61,42,30,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Noto Sans JP",sans-serif;background:var(--cream);color:var(--brown);line-height:1.8;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom);}
+  .serif{font-family:"Noto Serif JP",serif;}
+  a{color:var(--blue-dark);}
+  .hidden{display:none !important;}
+
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px;}
+
+  /* 鍵画面 */
+  .lock-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+  .lock{background:var(--card);border:1px solid var(--tan-line);border-radius:18px;box-shadow:var(--shadow-lg);padding:34px 26px;max-width:420px;width:100%;text-align:center;}
+  .lock h1{font-size:20px;font-weight:700;line-height:1.5;margin-bottom:10px;}
+  .lock p{font-size:14px;color:var(--brown-mid);margin-bottom:20px;}
+  .lock input{width:100%;border:2px solid var(--tan-line);border-radius:12px;padding:13px 16px;font-family:inherit;font-size:16px;color:var(--brown);background:#fff;outline:none;transition:border .15s;}
+  .lock input:focus{border-color:var(--blue);}
+  .lock .btn{margin-top:14px;width:100%;border:none;border-radius:999px;padding:14px;font-family:inherit;font-size:15px;font-weight:700;color:#fff;cursor:pointer;background:linear-gradient(135deg,#1583c4 0%,#1aa0a6 55%,#3bb273 100%);box-shadow:var(--shadow);}
+  .lock .status{margin-top:12px;font-size:13px;min-height:18px;}
+  .lock .status.error{color:#c0392b;}
+  .lock .status.loading{color:var(--brown-soft);}
+
+  /* ヘッダー（ワクワク・グラデ） */
+  header{position:relative;overflow:hidden;color:#fff;padding:calc(34px + env(safe-area-inset-top)) 22px 30px;
+    background:linear-gradient(135deg,#1583c4 0%,#1aa0a6 55%,#3bb273 100%);}
+  header::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.12);}
+  header::before{content:"";position:absolute;right:60px;bottom:-60px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,.08);}
+  header h1{font-size:clamp(24px,6.4vw,38px);font-weight:700;line-height:1.3;position:relative;}
+  header .lead{font-size:14px;opacity:.95;margin-top:10px;max-width:560px;position:relative;}
+  header .count{display:inline-block;margin-top:14px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:5px 16px;font-size:13px;font-weight:700;position:relative;}
+
+  /* 検索バー（スティッキー） */
+  .searchbar{position:sticky;top:0;z-index:20;background:var(--cream);padding:14px 0 8px;margin-top:6px;}
+  .search-in{position:relative;}
+  .search-in input{width:100%;border:2px solid var(--tan-line);border-radius:999px;padding:13px 44px 13px 44px;font-family:inherit;font-size:15px;color:var(--brown);background:#fff;outline:none;transition:border .15s;}
+  .search-in input:focus{border-color:var(--blue);}
+  .search-in .mag{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--brown-soft);}
+  .search-in .clr{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:none;background:#efe7d9;color:var(--brown-mid);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:15px;line-height:1;display:none;}
+
+  /* テーマチップ（横スクロール） */
+  .chips{display:flex;gap:8px;overflow-x:auto;padding:6px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .chips::-webkit-scrollbar{display:none;}
+  .chip{flex:none;border:1.5px solid var(--tan-line);background:#fff;color:var(--brown-mid);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:7px;transition:all .15s;}
+  .chip .dot{width:9px;height:9px;border-radius:50%;background:var(--tan);}
+  .chip .n{font-size:11px;opacity:.7;font-weight:700;}
+  .chip.on{color:#fff;border-color:transparent;box-shadow:var(--shadow);}
+  .chip.on .dot{background:rgba(255,255,255,.85);}
+  .chip.on .n{opacity:.85;}
+
+  /* コントロール行（並び順・管理用） */
+  .controls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:2px 2px 0;}
+  .controls select{border:1.5px solid var(--tan-line);background:#fff;color:var(--brown-mid);border-radius:999px;padding:7px 14px;font-family:inherit;font-size:12.5px;font-weight:600;outline:none;cursor:pointer;}
+  .draft-toggle{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--brown-soft);cursor:pointer;}
+
+  .resnum{font-size:12.5px;color:var(--brown-soft);margin:10px 2px 12px;font-weight:600;}
+
+  /* Q&Aカード */
+  #list{display:grid;gap:12px;padding-bottom:30px;}
+  .qa{background:var(--card);border:1px solid var(--tan-line);border-left:4px solid var(--tan);border-radius:0 13px 13px 0;box-shadow:var(--shadow);overflow:hidden;}
+  .qa summary{list-style:none;cursor:pointer;padding:16px 46px 16px 18px;position:relative;}
+  .qa summary::-webkit-details-marker{display:none;}
+  .qa .toprow{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap;}
+  .qa .tag{display:inline-block;font-size:10.5px;font-weight:700;color:#fff;padding:2px 10px;border-radius:999px;}
+  .qa .date{font-size:11px;color:var(--brown-soft);font-weight:600;}
+  .qa .draftbadge{font-size:10px;font-weight:700;color:#fff;background:#c98a3c;padding:2px 8px;border-radius:999px;}
+  .qa .qz{display:flex;gap:9px;}
+  .qa .qmark{flex:none;font-family:"Noto Serif JP",serif;font-weight:700;color:var(--orange);font-size:17px;line-height:1.4;}
+  .qa .qtext{font-size:14.5px;font-weight:600;color:var(--brown);line-height:1.65;}
+  .qa summary:after{content:"＋";position:absolute;right:16px;top:18px;color:var(--tan);font-weight:700;font-size:19px;transition:transform .2s;}
+  .qa[open] summary:after{content:"−";color:var(--orange);}
+  .qa .ans{border-top:1px dashed var(--tan-line);margin:0 18px;padding:14px 0 18px;}
+  .qa .ans .az{display:flex;gap:9px;}
+  .qa .ans .amark{flex:none;font-size:16px;}
+  .qa .ans .atext{font-size:13.5px;color:var(--brown-mid);line-height:1.85;white-space:pre-wrap;}
+  .qa .ans .atext.empty{color:var(--brown-soft);font-style:italic;}
+  mark{background:#ffe7a8;color:inherit;padding:0 1px;border-radius:3px;}
+
+  .empty{text-align:center;color:var(--brown-soft);font-size:14px;padding:50px 20px;}
+  .empty .big{font-size:34px;margin-bottom:10px;}
+
+  footer{border-top:1px solid var(--tan-line);text-align:center;padding:24px 18px 40px;color:var(--brown-mid);font-size:12.5px;}
+
+  @media(max-width:600px){
+    .wrap{padding:0 13px;}
+    .qa summary{padding:15px 42px 15px 15px;}
+    .qa .ans{margin:0 15px;}
+  }
+</style>
 </head>
 <body>
 
 <!-- 鍵画面 -->
-<main id="lockScreen" class="container">
+<main id="lockScreen" class="lock-wrap">
   <div class="lock">
     <h1>🔒 パスワードを入力してください</h1>
     <p>アーカイブを閲覧するにはパスワードが必要です。</p>
     <form id="lockForm">
       <input type="password" id="passwordInput" placeholder="パスワード" autocomplete="current-password" required>
       <p id="lockStatus" class="status" role="status" aria-live="polite"></p>
-      <button type="submit" class="btn-primary">開く</button>
+      <button type="submit" class="btn">開く</button>
     </form>
   </div>
 </main>
 
 <!-- アーカイブ本体 -->
-<main id="archiveScreen" class="container hidden">
-  <header class="hero">
-    <h1>オーガニックQ&Aひろば</h1>
-    <p class="lead">これまでの質問と回答</p>
+<div id="archiveScreen" class="hidden">
+  <header>
+    <div class="wrap">
+      <h1 class="serif">オーガニックQ&Aひろば</h1>
+      <p class="lead">これまでに寄せられた質問と、レムケなつこ＆仲間たちの回答を集めました。あなたの「？」も、きっとここに。</p>
+      <span class="count" id="count">— 件のQ&A</span>
+    </div>
   </header>
 
-  <div class="toolbar">
-    <input type="search" id="searchInput" placeholder="🔍 キーワードで検索">
-    <div class="toolbar-row">
-      <select id="categoryFilter">
-        <option value="">すべてのカテゴリ</option>
-        <option value="メールレッスンの内容について">メールレッスンの内容について</option>
-        <option value="オーガニックの基礎知識">オーガニックの基礎知識</option>
-        <option value="お客様への説明で困ったこと">お客様への説明で困ったこと</option>
-        <option value="売場・商品について">売場・商品について</option>
-        <option value="その他">その他</option>
-      </select>
-      <select id="sortOrder">
-        <option value="desc">新しい順</option>
-        <option value="asc">古い順</option>
-      </select>
+  <div class="wrap">
+    <div class="searchbar">
+      <div class="search-in">
+        <svg class="mag" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchInput" type="search" placeholder="キーワードで検索（例：農薬、認証、コスメ…）" autocomplete="off">
+        <button class="clr" id="clrBtn" aria-label="クリア">×</button>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="controls">
+        <select id="sortOrder">
+          <option value="desc">新しい順</option>
+          <option value="asc">古い順</option>
+        </select>
+        <label class="draft-toggle">
+          <input type="checkbox" id="showDrafts">
+          <span>未公開の下書きも表示（管理用）</span>
+        </label>
+      </div>
     </div>
-    <label class="draft-toggle">
-      <input type="checkbox" id="showDrafts">
-      <span>未公開の下書きも表示（管理用）</span>
-    </label>
+
+    <div class="resnum" id="resnum"></div>
+    <div id="list"></div>
+    <div id="emptyState" class="empty hidden"><div class="big">🌱</div>該当するQ&Aが見つかりませんでした。<br>キーワードやテーマを変えてみてください。</div>
   </div>
 
-  <ul id="qaList" class="qa-list"></ul>
-  <div id="emptyState" class="empty-state hidden">該当するQ&Aがありません。</div>
-</main>
+  <footer>
+    <div>© <span id="y"></span> Institut für Organic Business GmbH</div>
+  </footer>
+</div>
 
 <script src="../assets/config.js"></script>
 <script src="../assets/archive.js"></script>
